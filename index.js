@@ -1,8 +1,16 @@
 const firebase = require('./firebase');
 const schedule = require('node-schedule');
 const express = require('express');
+const cors = require('cors');
 const app = express()
 const port = 5000
+
+const corsOptions = {
+  origin: 'https://nick.wylynko.com',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+app.use(cors(corsOptions))
 
 let stats = {}
 
