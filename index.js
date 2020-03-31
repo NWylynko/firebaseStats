@@ -59,6 +59,6 @@ function updateState() {
 
 }
 
-app.get('/', (req, res) => { res.json(stats) })
+app.get('/stats', (req, res) => { res.json(stats) })
 
 app.listen(port, () => console.log(`listening on port ${port}`))
