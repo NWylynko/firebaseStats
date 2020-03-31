@@ -1,0 +1,15 @@
+{
+  "name": "firebaseStats",
+  "version": "1.0.0",
+  "description": "express app to compile stats from firebase to display on website",
+  "main": "index.js",
+  "repository": "git@github.com:NWylynko/firebaseStats.git",
+  "author": "Nick Wylynko <nick1014375@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "express": "^4.17.1",
+    "firebase-admin": "^8.10.0",
+    "node-schedule": "^1.3.2"
+  }
+}
