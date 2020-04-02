@@ -99,6 +99,8 @@ function updateState() {
     .catch(err => {console.error(err); stats.smallTalk.error = true; report(err);})
   
     stats.lastUpdated = Date.now()
+    stats.lastUpdatedFormatted = Date()
+
     console.log('updated stats')
   } catch (error) {
 
