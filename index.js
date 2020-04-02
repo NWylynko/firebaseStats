@@ -5,6 +5,8 @@ const cors = require('cors');
 const app = express()
 const port = 5000
 
+console.log(`starting on ${Date()}`)
+
 const logger = require('fluent-logger').createFluentSender('firebaseStats', {
   host: 'localhost',
   port: 24224,
