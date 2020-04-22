@@ -65,9 +65,9 @@ function updateState() {
     stats.miniNotes = {
       loading: true
     }
-  
+
     miniNotes.database().ref('board').once('value', value => {
-  
+
       stats.miniNotes.boards = value.numChildren()
       let n = 0
       value.forEach(board => {
@@ -75,21 +75,21 @@ function updateState() {
       })
       stats.miniNotes.notes = n
     }).then(() => { stats.miniNotes.loading = false })
-      .catch(err => {console.error(err); stats.miniNotes.error = true; report(err);})
-  
+      .catch(err => { console.error(err); stats.miniNotes.error = true; report(err); })
+
     stats.fountains = {
       loading: true
     }
-  
+
     fountains.database().ref('locations').once('value', value => {
       stats.fountains.locations = value.numChildren()
     }).then(() => { stats.fountains.loading = false })
-    .catch(err => {console.error(err); stats.fountains.error = true; report(err);})
-  
+      .catch(err => { console.error(err); stats.fountains.error = true; report(err); })
+
     stats.smallTalk = {
       loading: true
     }
-  
+
     smallTalk.database().ref('msg').once('value', value => {
       stats.smallTalk.chats = value.numChildren()
       let n = 0
@@ -98,8 +98,8 @@ function updateState() {
       })
       stats.smallTalk.messages = n
     }).then(() => { stats.smallTalk.loading = false })
-    .catch(err => {console.error(err); stats.smallTalk.error = true; report(err);})
-  
+      .catch(err => { console.error(err); stats.smallTalk.error = true; report(err); })
+
     stats.lastUpdated = Date.now()
     stats.lastUpdatedFormatted = Date()
 
