@@ -1,4 +1,4 @@
-FROM node:13
+FROM node:14-alpine
 
 WORKDIR /var/www/firebaseStats
 COPY package.json yarn.lock ./
