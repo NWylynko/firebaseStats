@@ -7,23 +7,6 @@ const port = 5000
 
 console.log(`starting on ${Date()}`)
 
-const logger = require('fluent-logger').createFluentSender('firebaseStats', {
-  host: 'localhost',
-  port: 24224,
-  timeout: 3.0,
-  reconnectInterval: 600000 // 10 minutes
-});
-
-const report = (err) => {
-  const payload = {
-    serviceContext: {
-      service: 'firebaseStats',
-    },
-    message: err,
-  };
-  logger.emit('errors', payload);
-};
-
 const corsOptions = {
   origin: 'https://nick.wylynko.com',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
@@ -40,19 +23,19 @@ let smallTalk;
 try {
   miniNotes = firebase.initApp('MiniNotes', "./serviceAccounts/miniNotes.json", "https://mininotes-420.firebaseio.com")
 } catch (error) {
-  report(error)
+  console.error(error)
 }
 
 try {
   fountains = firebase.initApp('fountains', "./serviceAccounts/fountains.json", "https://fountains-app.firebaseio.com")
 } catch (error) {
-  report(error)
+  console.error(error)
 }
 
 try {
   smallTalk = firebase.initApp('smallTalk', "./serviceAccounts/smallTalk.json", "https://small-talk-666.firebaseio.com")
 } catch (error) {
-  report(error)
+  console.error(error)
 }
 
 updateState()
@@ -75,7 +58,7 @@ function updateState() {
       })
       stats.miniNotes.notes = n
     }).then(() => { stats.miniNotes.loading = false })
-      .catch(err => { console.error(err); stats.miniNotes.error = true; report(err); })
+      .catch(err => { console.error(err); stats.miniNotes.error = true; console.error(err); })
 
     stats.fountains = {
       loading: true
@@ -84,7 +67,7 @@ function updateState() {
     fountains.database().ref('locations').once('value', value => {
       stats.fountains.locations = value.numChildren()
     }).then(() => { stats.fountains.loading = false })
-      .catch(err => { console.error(err); stats.fountains.error = true; report(err); })
+      .catch(err => { console.error(err); stats.fountains.error = true; console.error(err); })
 
     stats.smallTalk = {
       loading: true
@@ -98,7 +81,7 @@ function updateState() {
       })
       stats.smallTalk.messages = n
     }).then(() => { stats.smallTalk.loading = false })
-      .catch(err => { console.error(err); stats.smallTalk.error = true; report(err); })
+      .catch(err => { console.error(err); stats.smallTalk.error = true; console.error(err); })
 
     stats.lastUpdated = Date.now()
     stats.lastUpdatedFormatted = Date()
@@ -106,7 +89,7 @@ function updateState() {
     console.log('updated stats')
   } catch (error) {
 
-    report(error)
+    console.error(error)
 
   }
 
