@@ -45,43 +45,66 @@ schedule.scheduleJob('0 12 * * *', updateState);
 function updateState() {
 
   try {
+
     stats.miniNotes = {
       loading: true
     }
 
-    miniNotes.database().ref('board').once('value', value => {
+    if (miniNotes) {
 
-      stats.miniNotes.boards = value.numChildren()
-      let n = 0
-      value.forEach(board => {
-        n += board.numChildren()
-      })
-      stats.miniNotes.notes = n
-    }).then(() => { stats.miniNotes.loading = false })
-      .catch(err => { console.error(err); stats.miniNotes.error = true; console.error(err); })
+      miniNotes.database().ref('board').once('value', value => {
+
+        stats.miniNotes.boards = value.numChildren()
+        let n = 0
+        value.forEach(board => {
+          n += board.numChildren()
+        })
+        stats.miniNotes.notes = n
+      }).then(() => { stats.miniNotes.loading = false })
+        .catch(err => { console.error(err); stats.miniNotes.error = true; })
+
+    } else {
+      stats.miniNotes.error = true;
+      stats.miniNotes.loading = false;
+      console.error('miniNotes isnt defined')
+    }
+
 
     stats.fountains = {
       loading: true
     }
 
-    fountains.database().ref('locations').once('value', value => {
-      stats.fountains.locations = value.numChildren()
-    }).then(() => { stats.fountains.loading = false })
-      .catch(err => { console.error(err); stats.fountains.error = true; console.error(err); })
+    if (fountains) {
+      fountains.database().ref('locations').once('value', value => {
+        stats.fountains.locations = value.numChildren()
+      }).then(() => { stats.fountains.loading = false })
+        .catch(err => { console.error(err); stats.fountains.error = true; })
+    } else {
+      stats.fountains.error = true;
+      stats.fountains.loading = false;
+      console.error('fountains isnt defined')
+    }
+
 
     stats.smallTalk = {
       loading: true
     }
 
-    smallTalk.database().ref('msg').once('value', value => {
-      stats.smallTalk.chats = value.numChildren()
-      let n = 0
-      value.forEach(message => {
-        n += message.numChildren()
-      })
-      stats.smallTalk.messages = n
-    }).then(() => { stats.smallTalk.loading = false })
-      .catch(err => { console.error(err); stats.smallTalk.error = true; console.error(err); })
+    if (smallTalk) {
+      smallTalk.database().ref('msg').once('value', value => {
+        stats.smallTalk.chats = value.numChildren()
+        let n = 0
+        value.forEach(message => {
+          n += message.numChildren()
+        })
+        stats.smallTalk.messages = n
+      }).then(() => { stats.smallTalk.loading = false })
+        .catch(err => { console.error(err); stats.smallTalk.error = true; })
+    } else {
+      stats.smallTalk.error = true;
+      stats.smallTalk.loading = false;
+      console.error('smallTalk isnt defined')
+    }
 
     stats.lastUpdated = Date.now()
     stats.lastUpdatedFormatted = Date()
