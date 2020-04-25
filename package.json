@@ -1,6 +1,6 @@
 {
   "name": "firebaseStats",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "express app to compile stats from firebase to display on website",
   "main": "index.js",
   "repository": "git@github.com:NWylynko/firebaseStats.git",
